@@ -13,6 +13,7 @@ public partial class MainView : Avalonia.Controls.UserControl
         InitializeComponent();
 
         BurdUiApp.Root = BuildTree3();
+        BurdUiApp.Paint();
     }
     
     private View BuildTree()

@@ -35,10 +35,11 @@ public class App : Control
     {
         // init BurdUI graphics context
         var size = new PixelSize(MaxWidth, MaxHeight);
-        var dpi = new Vector(192, 192);
+        var dpi = new Vector(96, 96);
 
         _bitmap = new RenderTargetBitmap(size, dpi);
-        burdUIContext = _bitmap.CreateDrawingContext();
+
+        
 
         Focusable = true;
 
@@ -90,15 +91,20 @@ public class App : Control
     public override void Render(DrawingContext ctx)
     {
         base.Render(ctx);
-        
-        // painting BurdUI
-        Root?.Paint(burdUIContext);
 
        // passing the result to the Avalonia Window
         ctx.DrawImage(
             _bitmap,
             sourceRect: new Rect(0, 0, MaxWidth, MaxHeight),
             destRect: new Rect(0, 0, MaxWidth, MaxHeight));
+    }
+    
+    public void Paint()
+    {
+        using (var burdUIContext = _bitmap.CreateDrawingContext(false))
+        {
+            Root.Paint(burdUIContext);
+        }
     }
 
     
