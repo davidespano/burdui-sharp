@@ -11,8 +11,7 @@ public class View
 {
     [XmlIgnore]
     public Rect Bounds { get; set; }
-    
-    
+
     
     [XmlArray("Children")]   
     [XmlArrayItem("Button", typeof(Button))]
@@ -114,13 +113,17 @@ public class View
         else
         {
             var parentDamagedArea = new Rect(
-                evt.DamagedArea.X  + Bounds.X,
-                evt.DamagedArea.Y  + Bounds.Y,
+                evt.DamagedArea.X  + Parent.Bounds.X,
+                evt.DamagedArea.Y  + Parent.Bounds.Y,
                 evt.DamagedArea.Width,
                 evt.DamagedArea.Height);
             evt.DamagedArea = parentDamagedArea;
+            Console.WriteLine(evt.DamagedArea);
             this.Parent.Invalidate(evt);
+            
             
         }
     }
+
+   
 }
